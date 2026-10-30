@@ -8,12 +8,35 @@
     <title>hub jeu de société score app</title>
 </head>
 <body>
+    
     <!-- Arrière-plan lumineux et bleuté (nécessaire pour voir le flou sur fond noir) -->
     <div id="full_body" class="glass_body">
         <div class="bg-glow glow1"></div>
         <div class="bg-glow glow2"></div>
         <div id="zone_de_préparation_pour_le_menu"></div>
 
+        <!-- Le Bouton Switch -->
+        <div class="switch_global">
+        <div class="switch-container">
+          <label class="switch">
+            <input type="checkbox" id="urlSwitch">
+            <span class="slider"></span>
+          </label>
+          <span id="labelMode">Mode Normal</span>
+        </div>
+        </div>
+        
+        <div id="liste_des_jeux">
+            <a href="skull_king.html"
+                data-normal="/skull_king.html" 
+                data-astuce="astuces/skull_king.html"
+                class="slot_de_jeu">
+                <img src="skull_king_logo.jpg" alt=""> 
+                <div class="nom_de_jeu">
+                    Skull King
+                </div>
+            </a>
+        </div>    
     </div>
 
         

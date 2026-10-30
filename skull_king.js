@@ -3,8 +3,7 @@ const tabJoueur = document.getElementById("tableau_joueur")
 const buttonStart = document.getElementById("commencer")
 const players = document.getElementById("joueurs")
 
-// var joueurs_nom = []
-var joueurs_nom = ["test1","test2","test3","test4","test5","test6","test7","test8"]
+var joueurs_nom = []
 
 var score_all_joueurs = {}
 
@@ -106,6 +105,7 @@ buttonStart.addEventListener("click",()=>{
         joueurs_nom.push(element.children[1].firstElementChild.value)
     });
     creation_tableu_score()
+    afficher_tableau()
 
 })
 
@@ -467,7 +467,7 @@ validation.addEventListener("click",()=>{
 })
 
 //pour aller au prochain tour
-let round_started = 1
+let round_started = 0
 const prochainTour = document.getElementById("prochain_tour")
 prochainTour.addEventListener("click",()=>{
     round_started +=1

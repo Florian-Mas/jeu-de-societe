@@ -85,7 +85,6 @@ button{
 }
 
 #joueurs{
-    display: none;
     height: 100vh;
     width: 100vw;
     align-content: center;
@@ -293,7 +292,7 @@ button{
     align-content: center;
     text-align: center;
     
-    /* display: none; */
+    display: none;
 }
 
 #tableau_de_pari{

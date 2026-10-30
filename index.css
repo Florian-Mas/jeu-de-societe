@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Évite les barres de défilement si les formes dépassent */
+    /*overflow: hidden; /* Évite les barres de défilement si les formes dépassent */
 }
 
 button{
@@ -82,4 +82,99 @@ button{
     transparent,
     rgba(255, 255, 255, 0.1)
   );
+}
+
+
+
+
+
+#liste_des_jeux{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5%;
+  padding: 3% 10% 0 10%;
+}
+
+.slot_de_jeu{
+  text-align: center;
+  background-color:  rgba(10, 25, 47, 0.836);
+  box-shadow: 0px 10px 30px rgba(255, 255, 255, 0.226);
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+
+}
+
+.nom_de_jeu{
+  padding: 10px 0px;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+/* pour avoir les astuce ou non */
+.switch_global{
+  display: flex;
+  justify-content: center;
+}
+/* Style du conteneur du switch */
+.switch-container {
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5%;
+  /* margin-bottom: ; */
+  font-family: sans-serif;
+}
+
+/* Le conteneur de l'interrupteur */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Cache la checkbox d'origine */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Le rail du switch */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+/* Le rond du switch */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Quand le switch est activé (coché) */
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
