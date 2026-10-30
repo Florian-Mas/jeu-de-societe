@@ -331,3 +331,8 @@ button{
     justify-content: center;
     align-items: center;
 }
+
+.bouton_bas_de_bage{
+    margin-top: 20px;
+    padding: 5px;
+}

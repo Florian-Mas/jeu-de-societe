@@ -1,0 +1,107 @@
+
+/* Style de la barre de navigation */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #333; */
+  padding: 1rem 2rem;
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Bouton hamburger (3 tirets) */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger .bar {
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Animation des 3 barres vers une croix "X" */
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Style du menu de navigation */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin-left: 2rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #00bcd4;
+}
+
+/* Version Mobile (écran <= 768px) */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 60px;
+    flex-direction: column;
+    background-color:  rgba(10, 25, 47, 0.836);
+    width: 100%;
+    text-align: center;
+    transition: 0.3s ease;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    border-top: white solid 1px;
+    border-bottom: white solid 1px;
+  }
+
+  .nav-menu.active {
+    left: 0;
+    z-index: 1;
+  }
+
+  .nav-item {
+    margin: 1.5rem 0;
+  }
+}
+
+/* Cache l'icône sur ordinateur */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+}
