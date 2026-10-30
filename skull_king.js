@@ -447,7 +447,7 @@ function afficher_pari(){
 }
 
 // pour valider les points
-
+let round_finish = 0
 const validation = document.getElementById("valider_valeur")
 validation.addEventListener("click",()=>{
     const all_pari = document.querySelectorAll(".tableau_de_jeu_nombre_de_pari")
@@ -462,6 +462,7 @@ validation.addEventListener("click",()=>{
     afficher_tableau()
     update_score_all_joueurs(current_round,valeur_tableau)
     activation_zone_clickable()
+    round_finish = round_started
     
 })
 
@@ -562,3 +563,13 @@ function activation_zone_clickable(){
         })
     })
 }
+
+const retour_tableau = document.getElementById("retour_tableau")
+retour_tableau.addEventListener("click",()=>{
+    if(round_started == current_round){round_started = round_finish}
+    afficher_tableau()    
+})
+const retour_paris = document.getElementById("retour_paris")
+retour_paris.addEventListener("click",()=>{
+    afficher_pari()    
+})
