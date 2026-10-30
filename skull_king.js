@@ -8,6 +8,8 @@ var joueurs_nom = ["test1","test2","test3","test4","test5","test6","test7","test
 
 var score_all_joueurs = {}
 
+let current_round = 1
+
 //pour réajuster le numéro des joueurs
 function reajusteNumber(){
     let ligne_tableau = document.querySelectorAll(".ligne_tableau_joueur")
@@ -136,10 +138,10 @@ function mise_a_jour_tableau_pari_point(round,dictionnaire){
         
         div_score_joueur_round.classList.add("score_joueur_round")
         div_score_joueur_parie.classList.add("score_joueur_parie")
-        div_score_joueur_parie.innerHTML = dictionnaire[e][0]
+        div_score_joueur_parie.innerHTML = dictionnaire[e][1]
         
         div_score_joueur_point.classList.add("score_joueur_point")
-        div_score_joueur_point.innerHTML = dictionnaire[e][1]
+        div_score_joueur_point.innerHTML = dictionnaire[e][2]
 
 
         score_round_joueur.appendChild(div_score_joueur_total);
@@ -223,6 +225,9 @@ function mise_en_place_tableau_de_jeu(dic){
     }
 
     let count = 0
+    const score_of_round = score_all_joueurs[current_round]
+    // console.log("voici le score de tous les joueur : ")
+    // console.log(score_all_joueurs["round"]["joueur"])
     joueurs_nom.forEach(element => {
         const div_ligne =  document.createElement("div")
         div_ligne.classList.add("ligne_tableau_de_jeu")
@@ -240,7 +245,12 @@ function mise_en_place_tableau_de_jeu(dic){
             div_pari.innerHTML = dic["pari"][count].innerHTML
         }
         catch{
-            div_pari.innerHTML = 0
+            if(score_of_round){
+                div_pari.innerHTML = score_of_round[count+1][0]
+            }
+            else{
+                div_pari.innerHTML = 0
+            }
         }
         
         //pour les plis
@@ -249,10 +259,10 @@ function mise_en_place_tableau_de_jeu(dic){
         
         const div_plis_nombre = document.createElement("div")
         div_plis_nombre.classList.add("tableau_de_jeu_nombre_de_plis")
-        try{
-            div_plis_nombre.innerHTML = dic["plis"][count].innerHTML
+        if(score_of_round){
+            div_plis_nombre.innerHTML = score_of_round[count+1][1]
         }
-        catch{
+        else{
             div_plis_nombre.innerHTML = 0
         }
         const button_plis_moins = document.createElement("button")
@@ -275,10 +285,10 @@ function mise_en_place_tableau_de_jeu(dic){
         
         const div_couleur14_nombre = document.createElement("div")
         div_couleur14_nombre.classList.add("tableau_de_jeu_nombre_de_couleur14")
-        try{
-            div_couleur14_nombre.innerHTML = dic["couleur14"][count].innerHTML
+        if(score_of_round){
+            div_couleur14_nombre.innerHTML = score_of_round[count+1][3]
         }
-        catch{
+        else{
             div_couleur14_nombre.innerHTML = 0
         }
         const button_couleur14_moins = document.createElement("button")
@@ -401,7 +411,7 @@ function comptage_de_point_round(round,pari,plis,couleur){
 
     //pour le résultat final
     for (const [cle, valeur] of Object.entries(dic_final)) {
-        dic_final[cle] = [plis_dic[cle],result[cle],couleur_dic[cle]]
+        dic_final[cle] = [pari_dic[cle],plis_dic[cle],result[cle],couleur_dic[cle]]
         if(index_dernierRadioClique == cle){
             dic_final[cle].push(true)
         }
@@ -437,7 +447,7 @@ function afficher_pari(){
 }
 
 // pour valider les points
-let current_round = 1
+
 const validation = document.getElementById("valider_valeur")
 validation.addEventListener("click",()=>{
     const all_pari = document.querySelectorAll(".tableau_de_jeu_nombre_de_pari")
@@ -451,6 +461,7 @@ validation.addEventListener("click",()=>{
     mise_a_jour_tableau()
     afficher_tableau()
     update_score_all_joueurs(current_round,valeur_tableau)
+    activation_zone_clickable()
     
 })
 
@@ -462,11 +473,12 @@ prochainTour.addEventListener("click",()=>{
     current_round = round_started
     afficher_pari()
     mise_en_place_tableau_de_jeu({})
-    mise_en_place_tableau_de_pari({})
+    mise_en_place_tableau_de_pari(null)
 })
 
 //tableau des paris
 function mise_en_place_tableau_de_pari(dic){
+    console.log(dic)
     const enteteTableau = document.getElementById("tableau_de_pari")
 
     for (const [index,element] of Array.from(enteteTableau.children).entries()) {
@@ -476,6 +488,7 @@ function mise_en_place_tableau_de_pari(dic){
         element.remove()
     }
 
+    let count = 1
     joueurs_nom.forEach(element => {
         const div_ligne =  document.createElement("div")
         div_ligne.classList.add("ligne_tableau_de_pari")
@@ -491,7 +504,12 @@ function mise_en_place_tableau_de_pari(dic){
         
         const div_pari_nombre = document.createElement("div")
         div_pari_nombre.classList.add("tableau_de_pari_nombre_de_pari")
-        div_pari_nombre.innerHTML = 0
+        try{
+            div_pari_nombre.innerHTML = dic[count][0]
+        }
+        catch{
+            div_pari_nombre.innerHTML = 0
+        }
         const button_pari_moins = document.createElement("button")
         button_pari_moins.classList.add("bouton_plus_moins")
         button_pari_moins.innerHTML = "-"
@@ -513,11 +531,12 @@ function mise_en_place_tableau_de_pari(dic){
 
         enteteTableau.append(div_ligne)
     
+        count ++
     });
     restart_radio()
 }
 
-mise_en_place_tableau_de_pari({})
+mise_en_place_tableau_de_pari(null)
 
 //pour valider les paris
 
@@ -528,3 +547,18 @@ paris_validation.addEventListener("click",()=>{
     mise_en_place_tableau_de_jeu({"pari":all_pari})
     afficher_jeu()    
 })
+
+function activation_zone_clickable(){
+    const zone_clickable_round = document.querySelectorAll(".zone_clickable_round");
+    console.log(zone_clickable_round)
+    zone_clickable_round.forEach((e)=>{
+        e.addEventListener("click",(event)=>{
+            current_round = event.target.innerHTML
+            const ligne_de_score = score_all_joueurs[current_round]
+            if (!ligne_de_score){return}
+            mise_en_place_tableau_de_pari(ligne_de_score)
+            afficher_pari()
+            // mise_en_place_tableau_de_jeu({})
+        })
+    })
+}
