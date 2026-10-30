@@ -205,8 +205,14 @@ function restart_radio(){
 }
 
 //cela met en place le tableau avec les point à attribuer
-const affichage_du_round = document.getElementById("affichage_du_round")
-function mise_en_place_tableau_de_jeu(array){
+const affichage_du_round = document.querySelectorAll(".affichage_du_round")
+function update_affichage_du_round(){
+    affichage_du_round.forEach((round)=>{
+        round.innerHTML = `Round ${current_round}`
+    })
+}
+
+function mise_en_place_tableau_de_jeu(dic){
     const enteteTableau = document.getElementById("tableau_de_jeu")
 
     for (const [index,element] of Array.from(enteteTableau.children).entries()) {
@@ -216,6 +222,7 @@ function mise_en_place_tableau_de_jeu(array){
         element.remove()
     }
 
+    let count = 0
     joueurs_nom.forEach(element => {
         const div_ligne =  document.createElement("div")
         div_ligne.classList.add("ligne_tableau_de_jeu")
@@ -229,7 +236,12 @@ function mise_en_place_tableau_de_jeu(array){
         const div_pari = document.createElement("div")
         div_pari.classList.add("slot_tableau_de_jeu")
         div_pari.classList.add("tableau_de_jeu_nombre_de_pari")
-        div_pari.innerHTML = 0
+        try{
+            div_pari.innerHTML = dic["pari"][count].innerHTML
+        }
+        catch{
+            div_pari.innerHTML = 0
+        }
         
         //pour les plis
         const div_plis = document.createElement("div")
@@ -237,7 +249,12 @@ function mise_en_place_tableau_de_jeu(array){
         
         const div_plis_nombre = document.createElement("div")
         div_plis_nombre.classList.add("tableau_de_jeu_nombre_de_plis")
-        div_plis_nombre.innerHTML = 0
+        try{
+            div_plis_nombre.innerHTML = dic["plis"][count].innerHTML
+        }
+        catch{
+            div_plis_nombre.innerHTML = 0
+        }
         const button_plis_moins = document.createElement("button")
         button_plis_moins.classList.add("bouton_plus_moins")
         button_plis_moins.innerHTML = "-"
@@ -258,7 +275,12 @@ function mise_en_place_tableau_de_jeu(array){
         
         const div_couleur14_nombre = document.createElement("div")
         div_couleur14_nombre.classList.add("tableau_de_jeu_nombre_de_couleur14")
-        div_couleur14_nombre.innerHTML = 0
+        try{
+            div_couleur14_nombre.innerHTML = dic["couleur14"][count].innerHTML
+        }
+        catch{
+            div_couleur14_nombre.innerHTML = 0
+        }
         const button_couleur14_moins = document.createElement("button")
         button_couleur14_moins.classList.add("bouton_plus_moins")
         button_couleur14_moins.innerHTML = "-"
@@ -292,6 +314,8 @@ function mise_en_place_tableau_de_jeu(array){
         div_ligne.append(div_couleur14)
         div_ligne.append(div_noir14)
         enteteTableau.append(div_ligne)
+
+        count ++
     
     });
     restart_radio()
@@ -393,15 +417,23 @@ function update_score_all_joueurs(round,valeur){
     console.log(score_all_joueurs)
 }
 
-//switch entre la vue tableau et vu de jeu
+//switch entre la vue tableau, vue de jeu, vue pari
 function afficher_tableau(){
     document.getElementById("tableau_de_jeu_global").style.display = "none"
+    document.getElementById("tableau_de_pari_global").style.display = "none"
     document.getElementById("tableau_score_global").style.display = "initial"
 }
 function afficher_jeu(){
     document.getElementById("tableau_de_jeu_global").style.display = "initial"
     document.getElementById("tableau_score_global").style.display = "none"
-    affichage_du_round.innerHTML = `Round ${current_round}`
+    document.getElementById("tableau_de_pari_global").style.display = "none"
+    update_affichage_du_round()
+}
+function afficher_pari(){
+    document.getElementById("tableau_de_jeu_global").style.display = "none"
+    document.getElementById("tableau_score_global").style.display = "none"
+    document.getElementById("tableau_de_pari_global").style.display = "initial"
+    update_affichage_du_round()
 }
 
 // pour valider les points
@@ -428,6 +460,71 @@ const prochainTour = document.getElementById("prochain_tour")
 prochainTour.addEventListener("click",()=>{
     round_started +=1
     current_round = round_started
-    afficher_jeu()
-    mise_en_place_tableau_de_jeu([])
+    afficher_pari()
+    mise_en_place_tableau_de_jeu({})
+    mise_en_place_tableau_de_pari({})
+})
+
+//tableau des paris
+function mise_en_place_tableau_de_pari(dic){
+    const enteteTableau = document.getElementById("tableau_de_pari")
+
+    for (const [index,element] of Array.from(enteteTableau.children).entries()) {
+        if (index === 0) {
+            continue; // Passe à l'élément suivant si c'est le premier
+        }
+        element.remove()
+    }
+
+    joueurs_nom.forEach(element => {
+        const div_ligne =  document.createElement("div")
+        div_ligne.classList.add("ligne_tableau_de_pari")
+        
+        //nom
+        const div_nom = document.createElement("div")
+        div_nom.classList.add("slot_tableau_de_pari")
+        div_nom.innerHTML = element
+        
+        //pari fait
+        const div_pari = document.createElement("div")
+        div_pari.classList.add("slot_tableau_de_pari")
+        
+        const div_pari_nombre = document.createElement("div")
+        div_pari_nombre.classList.add("tableau_de_pari_nombre_de_pari")
+        div_pari_nombre.innerHTML = 0
+        const button_pari_moins = document.createElement("button")
+        button_pari_moins.classList.add("bouton_plus_moins")
+        button_pari_moins.innerHTML = "-"
+        const button_pari_plus = document.createElement("button")
+        button_pari_plus.classList.add("bouton_plus_moins")
+        button_pari_plus.innerHTML = "+"
+
+        div_pari.append(button_pari_moins)
+        div_pari.append(div_pari_nombre)
+        div_pari.append(button_pari_plus)
+
+        button_pari_plus.addEventListener("click",adding_plus_one_on_click)
+        button_pari_moins.addEventListener("click",remove_minus_one_on_click)
+        
+
+        //pour construire la ligne
+        div_ligne.append(div_nom)
+        div_ligne.append(div_pari)
+
+        enteteTableau.append(div_ligne)
+    
+    });
+    restart_radio()
+}
+
+mise_en_place_tableau_de_pari({})
+
+//pour valider les paris
+
+const paris_validation = document.getElementById("valider_pari")
+paris_validation.addEventListener("click",()=>{
+    const all_pari = document.querySelectorAll(".tableau_de_pari_nombre_de_pari")
+    console.log(all_pari)
+    mise_en_place_tableau_de_jeu({"pari":all_pari})
+    afficher_jeu()    
 })
