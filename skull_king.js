@@ -313,6 +313,12 @@ function mise_en_place_tableau_de_jeu(dic){
         checkbox.type = "radio";
         checkbox.name = "checkbox_14_noir";
         checkbox.value = true;
+        if(score_of_round){
+            checkbox.checked = score_of_round[count+1][4]
+        }
+        else{
+            checkbox.checked = false
+        }
 
         div_noir14.append(checkbox)
 
@@ -401,10 +407,14 @@ function comptage_de_point_round(round,pari,plis,couleur){
     let index_dernierRadioClique = 0
     if (dernierRadioClique){
         const divRadio = dernierRadioClique.parentElement.parentElement
-        const divRadioParent = divRadio.parentElement;
-        const index = Array.from(divRadioParent.children).indexOf(divRadio);
-        result[index] += Number(20)
-        index_dernierRadioClique = index
+        try{
+            const divRadioParent = divRadio.parentElement;
+            const index = Array.from(divRadioParent.children).indexOf(divRadio);
+            result[index] += Number(20)
+            index_dernierRadioClique = index
+        }
+        catch {
+        }
 
     }
 
