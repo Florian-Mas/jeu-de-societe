@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/global/menu.css">
+    <title>Skull king astuces</title>
+</head>
+<body>
+    
+    <!-- Arrière-plan lumineux et bleuté (nécessaire pour voir le flou sur fond noir) -->
+    <div class="bg-glow glow1"></div>
+    <div class="bg-glow glow2"></div>
+    <div id="full_body" class="glass_body">
+        <div id="zone_de_préparation_pour_le_menu"></div>
+
+        <div class="objectif">
+            <div class="but_du_jeu"> But du jeu : </div>
+            <div class="description_but"> Vous devez gagner le plus de points. Vous allez parier le nombre de plis que vous allez faire..</div>
+            <div class="calcul_point">
+                <div>Calcul des points :</div>
+                <ul>
+                    <li>
+                        0 plis parier : +/- 10 * le nombre de carte au début de la manche (au tour 5, on joue pour +/- 50 points)
+                    </li>
+                    <li>autre plis : </li>
+                    <ul>
+                        <li>bon pari : + 20* le nombre de plis pariés</li>
+                        <li>mauvais pari : - 10* le nombre de points d'écarts entre le pari et le résultat (ex : 2 plis pariés mais 5 récupérés, 5 - 2 = 3 3*10 = 30. Vous perdez 30 points)</li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="objectif">
+            <div class="mise_en_place">Mise en place :</div>
+            <div class="description_mise">Distribuer une carte à chaque joueur. Indiquer le nombre de plis que vous allez faire (0 ou 1).
+                <br>Jouer la cartes dans l'ordre. Compter le nombre de plis réalisé (rien ou 1) puis recommencer avec une carte de plus à chaque tour
+            </div>
+        </div>
+
+        <div class="objectif">
+            <div class="mise_en_place"> Comment jouer : </div>
+            <div class="description_mise">Vous devez forcément mettre la première couleur demandée.
+                <br>Si vous n'avez pas la couleur demandée, vous pouvez mettre ce que vous voulez. 
+                <br>Les cartes sans couleur (drapeau / tigresse / sirène / pirate / Skull King) peuvent être jouées n'importe quand.
+                <br>En cas d'égalité sur les cartes de valeur, le premier joueur à avoir posé la carte la plus haute l'importe.
+                <br>Si un drapeau blanc est posé, la couleur est déterminée par le joueur qui joue après. 
+            
+            </div>
+
+        </div>
+
+        <div class="force_des_cartes">
+            <div class="choix_de_carte">
+                <button id="Sirène">Sirène</button>
+                <button id="Pirate">Pirate</button>
+                <button id="Skull_king">Skull King</button>
+                <button id="tigresse">Tigresse</button>
+            </div>
+
+            <div class="objectif" style="margin-top: -20px;">
+                Si le skull king, le pirate et la sirène sont joués pendant le même tour, la sirène l'emporte
+            </div>
+            <div id="Sirene_avantage" hidden> 
+                <div class="img_base img_bandit"></div>
+                <div class="img_base img_sirene"></div>
+                <div class="img_base img_skull_king"></div>
+                <div class="img_base img_atout"></div>
+                <div class="img_base img_couleur">
+                    <div class="img_base img_couleur_vert"></div>
+                    <div class="img_base img_couleur_jaune"></div>
+                    <div class="img_base img_couleur_violet"></div>
+                </div>
+                <div class="img_base img_drapeau"></div>
+            </div>
+
+            <div id="Pirate_avantage" hidden> 
+                <div class="img_base img_skull_king"></div>
+                <div class="img_base img_bandit"></div>
+                <div class="img_base img_sirene"></div>
+                <div class="img_base img_atout"></div>
+                <div class="img_base img_couleur">
+                    <div class="img_base img_couleur_vert"></div>
+                    <div class="img_base img_couleur_jaune"></div>
+                    <div class="img_base img_couleur_violet"></div>
+                </div>
+                <div class="img_base img_drapeau"></div>
+            </div>
+            <div id="Skull_king_avantage" hidden> 
+                <div class="img_base img_sirene"></div>
+                <div class="img_base img_skull_king"></div>
+                <div class="img_base img_bandit"></div>
+                <div class="img_base img_atout"></div>
+                <div class="img_base img_couleur">
+                    <div class="img_base img_couleur_vert"></div>
+                    <div class="img_base img_couleur_jaune"></div>
+                    <div class="img_base img_couleur_violet"></div>
+                </div>
+                <div class="img_base img_drapeau"></div>
+            </div>
+            <div id="tigresse_avantage" hidden> 
+                <div class="img_base img_couleur">
+                    <div class="img_base img_bandit"></div>
+                    ou
+                    <div class="img_base img_drapeau"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+    </div>
+
+        
+</body>
+</html>
+
+<script src="/global/menu.js"></script>
+<script src="index.js"></script>
+<!-- <script src="debug.js"></script> -->
