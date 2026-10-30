@@ -50,3 +50,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+//supprimer le truc de netlify
+window.addEventListener("load", () => {
+    const netlifyBadge = document.getElementById("nl-badge-frame");
+    
+    // On vérifie qu'il existe bien avant de modifier son style pour éviter les erreurs
+    if (netlifyBadge) {
+        netlifyBadge.style.display = "none";
+    }
+});
