@@ -1,0 +1,11 @@
+.qr-box {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    gap: 20px;
+    align-items: center;
+}
+/* img {
+    display: block;
+    margin: 15px auto 0 auto;
+} */

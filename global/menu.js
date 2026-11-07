@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Liste des liens de navigation -->
         <ul class="nav-menu" id="nav-menu">
             <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+            <li class="nav-item"><a href="/share/share.html" class="nav-link">Partage QRcode</a></li>
             <li class="nav-item"><a href="skull_king.html" class="nav-link">skull king</a></li>
             <!--<li class="nav-item"><a href="#a-propos" class="nav-link">À propos</a></li>-->
             <!--<li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>-->
