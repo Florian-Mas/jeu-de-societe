@@ -1,0 +1,127 @@
+
+#joueurs{
+    height: 100vh;
+    width: 100vw;
+    align-content: center;
+    text-align: center;
+    
+}
+
+#tableau_joueur{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin: 0 auto;
+
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 8px;
+    overflow: hidden;
+
+    margin-bottom: 20px;
+    
+}
+
+.ligne_tableau_joueur{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2px;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    background-color: rgba(62, 37, 130, 0.2);
+}
+.joueur_numero{
+    border-right:2px dashed rgb(255, 255, 255);
+    align-content: center;
+}
+.joueur_nom{
+    align-content: center;
+}
+.joueur_action{
+    border: none;
+    border-left:2px dashed rgb(255, 255, 255);
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 0px;
+
+}
+
+.img_trash{
+    max-width: 100%;
+    max-height: 100%;
+    filter: brightness(0) invert(1);
+}
+
+.tableau_joueur > div {
+    align-content: center;
+}
+
+#plus_de_joueurs {
+    
+}
+
+.input_nom_joueur{
+    width: 97%;
+    height: 90%;
+    background-color: rgba(62, 37, 130, 0.2);
+    border: none;
+    color: white;
+    text-align: center;
+}
+
+
+
+
+
+#tableau_score_global{
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    align-content: center;
+    text-align: center;
+    
+    display:none;
+}
+
+#tableau_score{
+    
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    
+    margin: 0 auto;
+
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 6px;
+    
+}
+
+.ligne_tableau_score{
+    
+    display: grid;
+    grid-template-columns: var(--grille_colonnes_tableau_score, 1fr 2fr 2fr);
+
+    align-items: center;
+
+    border-bottom: 1px solid rgb(255, 255, 255);
+    height: 5vh;
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.slot_score_joueur{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(0.80rem, 1.5vw, 1rem);
+
+    border-right:2px solid rgb(255, 255, 255);
+    /* min-width: 50px; */
+
+    justify-content: center;
+}
+
+.bouton_bas_de_bage{
+    margin-top: 20px;
+    padding: 5px;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/global/menu.css">
+    <link rel="stylesheet" href="/global/page/page.css">
+    <link rel="stylesheet" href="/global/set_up_joueur/set_up_joueur.css">
+    <link rel="stylesheet" href="scoreboard.css">
+    <title>Scoreboard</title>
+</head>
+<body>
+    <!-- Arrière-plan lumineux et bleuté (nécessaire pour voir le flou sur fond noir) -->
+    <div id="full_body" class="glass_body">
+        <div class="bg-glow glow1"></div>
+        <div class="bg-glow glow2"></div>
+        <div id="zone_de_préparation_pour_le_menu"></div>
+        
+        <div id="joueurs">
+            <div id="tableau_joueur">
+               
+            </div>
+            
+            <button id="plus_de_joueurs">ajouter un joueur</button>
+            <button id="commencer">débuter la partie</button>
+        </div>
+        <div id="tableau_score_global">
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script src="/global/menu.js"></script>
+<script src="/global/set_up_joueur/set_up_joueur.js"></script>
+<script src="scoreboard.js"></script>
+<!-- <script src="debug.js"></script> -->
