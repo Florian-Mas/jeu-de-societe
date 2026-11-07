@@ -171,3 +171,9 @@ function add_round(){
     }
 
 }
+
+function initialize_round(num){
+    for(i=0;i<num;i++){
+        add_round()
+    }
+}
