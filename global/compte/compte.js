@@ -1,0 +1,257 @@
+const tableau_de_jeu_global = document.getElementById("tableau_de_jeu_global")
+const radio_list = []
+
+const tableau_de_jeu_entete_nom_taille =[
+    ["test0",2],
+    ["test1",1],
+    ["test2",2],
+    ["test3",2],
+    ["test4",2],
+]
+const tableau_de_jeu_type = 
+{
+    "test1":{
+        "fix":0
+    },
+    "test2":{
+        "compteur":[1,10]
+    },
+    "test3":{
+        "choix":"unique"
+    },
+    "test4":{
+        "choix":"multiple"
+    }
+}
+
+
+function basic_setup_tableau_de_jeu(){
+    const div_round = document.createElement("div")
+    const tableau_de_jeu = document.createElement("div")
+    const div_ligne_tableau = document.createElement("div")
+    const btn_retour = document.createElement("button")
+    const btn_valider = document.createElement("button")
+
+    div_round.classList.add("affichage_du_round")
+    
+    tableau_de_jeu.id = "tableau_de_jeu"
+    div_ligne_tableau.classList.add("ligne_tableau_de_jeu")
+    
+    btn_retour.id = "btn_retour"
+    btn_retour.classList.add("bouton_bas_de_bage")
+    btn_retour.innerHTML = "Retour"
+    btn_valider.id = "valider_valeur"
+    btn_valider.classList.add("bouton_bas_de_bage")
+    btn_valider.innerHTML = "Valider les scores"
+
+
+
+    tableau_de_jeu_global.appendChild(div_round)
+    tableau_de_jeu_global.appendChild(tableau_de_jeu)
+    tableau_de_jeu_global.appendChild(btn_retour)
+    tableau_de_jeu_global.appendChild(btn_valider)
+
+    tableau_de_jeu_global.style.display = "none"
+
+    tableau_de_jeu.appendChild(mise_en_place_entete())
+}
+
+function setup_logique_tableau_de_jeu(){
+    //format : {"nom":"type_dic"}
+    //type_dic : {"type":"element"}
+    //type : fix,compteur, choix
+        //fix : nombre
+        //compteur : [première possibilité, deuxieme, etc...]
+        //choix : unique,multiple
+    const tableau = document.getElementById("tableau_de_jeu")
+    for (const [index,element] of Array.from(tableau.children).entries()) {
+        if (index === 0) {
+            continue; // Passe à l'élément suivant si c'est le premier
+        }
+        element.remove()
+    }
+    console.log(joueurs_nom)
+
+    joueurs_nom.forEach(joueur => {
+        const div_ligne =  document.createElement("div")
+        div_ligne.classList.add("ligne_tableau_de_jeu")
+
+        const div_nom = document.createElement("div")
+        div_nom.classList.add("slot_tableau_de_jeu")
+        div_nom.innerHTML = joueur
+
+        div_ligne.appendChild(div_nom)
+
+        tableau_de_jeu_entete_nom_taille.forEach(element => {
+            element = element[0]
+
+            try{
+                for (const [typeCle, valeur] of Object.entries(tableau_de_jeu_type[element])) {
+                    switch (typeCle){
+                        case "fix": 
+                            div_ligne.appendChild(creation_fix(valeur))
+                            break;
+                        case "compteur": 
+                        console.log(valeur)
+                            div_ligne.appendChild(creation_compteur(valeur,element))
+                            break;
+                        case "choix": 
+                            div_ligne.appendChild(creation_choix(valeur,element))
+                            break;
+                    }
+                }
+            }
+            catch{
+                div_ligne.appendChild(creation_fix("N/C"))
+            }
+
+        });
+        tableau.appendChild(div_ligne)
+    })
+    radio_list.forEach(element => {
+        restart_radio(element)
+    });
+
+    
+}
+
+function mise_en_place_entete(){
+    const div_entete = document.createElement("div")
+    const div_joueur = document.createElement("div")
+
+    div_entete.classList.add("ligne_tableau_de_jeu")
+    
+    div_joueur.classList.add("slot_tableau_de_jeu")
+    div_joueur.innerHTML = "Joueurs"
+
+    div_entete.appendChild(div_joueur)
+    
+    let taille_colonne = "1fr"
+    tableau_de_jeu_entete_nom_taille.forEach(element => {
+        const div_element = document.createElement("div")
+        div_element.classList.add("slot_tableau_de_jeu")
+        div_element.innerHTML = element[0]
+        div_entete.appendChild(div_element)
+        taille_colonne +=` ${element[1]}fr`
+    });
+
+    document.documentElement.style.setProperty('--grille_colonnes_tableau_de_jeu', taille_colonne);
+
+    return div_entete
+}
+
+
+
+basic_setup_tableau_de_jeu()
+
+
+function creation_fix(element){
+    const div_element = document.createElement("div")
+
+    div_element.classList.add("slot_tableau_de_jeu")
+    div_element.classList.add(`tableau_de_jeu_${String(element).replaceAll(" ","_")}`)
+    div_element.innerHTML = element
+
+
+    return div_element
+}
+function creation_compteur(element,nom){
+
+    const div_element = document.createElement("div")
+    const div_nombre = document.createElement("div")
+
+    div_element.classList.add("slot_tableau_de_jeu")
+    div_nombre.classList.add(`tableau_de_jeu_${String(nom).replaceAll(" ","_")}`)
+    div_nombre.innerHTML = 0
+
+    div_element.appendChild(div_nombre)
+
+    // return div_element
+    element.forEach(numero => {
+        const btn_moins  = document.createElement("button")
+        const btn_plus  = document.createElement("button")
+
+        btn_moins.classList.add("bouton_plus_moins")
+        btn_plus.classList.add("bouton_plus_moins")
+        
+        btn_moins.innerHTML = `-${numero}`
+        btn_plus.innerHTML = `+${numero}`
+
+
+        btn_moins.addEventListener("click",adding_plus_moins_on_click)
+        btn_plus.addEventListener("click",adding_plus_moins_on_click)
+        div_element.insertBefore(btn_moins,div_nombre)
+        div_element.appendChild(btn_plus)
+        
+        
+    });
+
+    return div_element
+}
+function creation_choix(valeur,nom){
+    const div_element = document.createElement("div")
+
+    div_element.classList.add("slot_tableau_de_jeu")
+
+    const choix = document.createElement("input");
+
+    choix.value = "true";
+    
+    if (valeur == "unique"){
+        choix.type = "radio";
+        const radio_nom = `radio_${String(nom).replaceAll(" ","_")}`
+        choix.name = radio_nom
+        if (!radio_list.includes(radio_nom)) {
+            radio_list.push(radio_nom);
+        }
+
+    }
+    else if(valeur == "multiple"){
+        choix.type = "checkbox";
+        choix.name = `checkbox_${String(nom).replaceAll(" ","_")}`;
+
+    }
+
+    div_element.append(choix)
+
+    return div_element
+}
+
+//pour les click de bouton d'ajout/retrait
+function adding_plus_moins_on_click(event){
+    const nb = Number(event.target.innerHTML)
+    const div_valeur = event.target.parentElement.querySelector(':scope > [class^="tableau_de_jeu_"]');
+    let valeur = Number(div_valeur.textContent)
+
+    console.log(nb)
+    console.log(valeur+nb)
+    div_valeur.innerHTML = valeur+nb
+}
+
+function restart_radio(name){
+    const tousLesRadios = document.querySelectorAll(`input[name="${name}"]`);
+    
+    tousLesRadios.forEach(function(radio) {
+      
+        let etaitCoche = false;
+
+        radio.addEventListener("mousedown", (event) => {
+            // 1. On sauvegarde l'état AVANT le changement
+            etaitCoche = event.target.checked;
+        });
+        
+      // On écoute le clic (plutôt que change)
+        radio.addEventListener("click", function(event) {
+            if (etaitCoche){
+                event.target.checked = false
+            }
+
+        });
+    });
+}
+
+function afficher_tableau_de_jeu(){
+    document.getElementById("tableau_score_global").style.display = "none"
+    document.getElementById("tableau_de_jeu_global").style.display = "initial"
+
+}

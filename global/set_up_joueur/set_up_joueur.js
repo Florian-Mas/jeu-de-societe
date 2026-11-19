@@ -137,6 +137,7 @@ buttonStart.addEventListener("click",()=>{
     });
     creation_tableu_score()
     afficher_tableau()
+    setup_logique_tableau_de_jeu()
 
 })
 
