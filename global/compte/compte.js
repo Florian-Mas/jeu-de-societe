@@ -1,4 +1,6 @@
 const tableau_de_jeu_global = document.getElementById("tableau_de_jeu_global")
+let btn_retour_var;
+let btn_valider_var;
 const radio_list = []
 
 const tableau_de_jeu_entete_nom_taille =[
@@ -54,6 +56,8 @@ function basic_setup_tableau_de_jeu(){
     tableau_de_jeu_global.style.display = "none"
 
     tableau_de_jeu.appendChild(mise_en_place_entete())
+    btn_retour_var = btn_retour
+    btn_valider_var = btn_valider
 }
 
 function setup_logique_tableau_de_jeu(){
@@ -70,7 +74,6 @@ function setup_logique_tableau_de_jeu(){
         }
         element.remove()
     }
-    console.log(joueurs_nom)
 
     joueurs_nom.forEach(joueur => {
         const div_ligne =  document.createElement("div")
@@ -89,10 +92,9 @@ function setup_logique_tableau_de_jeu(){
                 for (const [typeCle, valeur] of Object.entries(tableau_de_jeu_type[element])) {
                     switch (typeCle){
                         case "fix": 
-                            div_ligne.appendChild(creation_fix(valeur))
+                            div_ligne.appendChild(creation_fix(valeur,element))
                             break;
                         case "compteur": 
-                        console.log(valeur)
                             div_ligne.appendChild(creation_compteur(valeur,element))
                             break;
                         case "choix": 
@@ -102,7 +104,7 @@ function setup_logique_tableau_de_jeu(){
                 }
             }
             catch{
-                div_ligne.appendChild(creation_fix("N/C"))
+                div_ligne.appendChild(creation_fix("N/C","N/C"))
             }
 
         });
@@ -145,11 +147,11 @@ function mise_en_place_entete(){
 basic_setup_tableau_de_jeu()
 
 
-function creation_fix(element){
+function creation_fix(element,nom){
     const div_element = document.createElement("div")
 
     div_element.classList.add("slot_tableau_de_jeu")
-    div_element.classList.add(`tableau_de_jeu_${String(element).replaceAll(" ","_")}`)
+    div_element.classList.add(`tableau_de_jeu_${String(nom).replaceAll(" ","_")}`)
     div_element.innerHTML = element
 
 
@@ -212,6 +214,7 @@ function creation_choix(valeur,nom){
 
     }
 
+    choix.classList.add(`tableau_de_jeu_${String(nom).replaceAll(" ","_")}`)
     div_element.append(choix)
 
     return div_element
@@ -250,8 +253,54 @@ function restart_radio(name){
     });
 }
 
-function afficher_tableau_de_jeu(){
-    document.getElementById("tableau_score_global").style.display = "none"
-    document.getElementById("tableau_de_jeu_global").style.display = "initial"
+function enregistrer_les_valeurs_dans_score_all_joueurs(){
+    //récupère les ligne
+    const ligne_tableau = document.querySelectorAll(".ligne_tableau_de_jeu:not(:first-child)")
+    //pour chaque ligne
+    ligne_tableau.forEach((element,index_ligne) => {
+        let liste_joueur_valeur = [];
+        console.log(joueurs_nom[index_ligne]);
+        //on récupère chaque éléments
+        [...element.children].forEach(enfant => {
+            //on vérifie si la div de base à la classe tableau_de_jeu_ qui début
+            if([...enfant.classList].some(classe => classe.startsWith("tableau_de_jeu_"))){
+                liste_joueur_valeur.push(enfant)
+            }
+            //on cherche tableau_de_jeu_ dans tous les enfants pour avec juste l'élément intéressant
+            else {
+                const element_recherche = enfant.querySelector('[class^="tableau_de_jeu_"]')
+                if(!element_recherche){
+                    return
+                }
+                liste_joueur_valeur.push(element_recherche)
+            }
+        });
+        liste_joueur_valeur.forEach((valeur,index_valeur)=>{
+            let valeur_a_save = null
+            if(!valeur.innerHTML){
+                valeur_a_save = valeur.checked
+            }
+            else{
+                valeur_a_save = valeur.innerHTML
+            }
+            score_all_joueurs[current_round] ||= {};
+            score_all_joueurs[current_round][joueurs_nom[index_ligne]] ||= {};
+            score_all_joueurs[current_round][joueurs_nom[index_ligne]][tableau_de_jeu_entete_nom_taille[index_valeur][0]] = valeur_a_save;
+        })
 
+
+    });
 }
+
+let page_precedente = null
+
+btn_retour_var.addEventListener("click",()=>{
+    afficher_cette_page(page_precedente)
+})
+
+btn_valider_var.addEventListener("click",()=>{
+    page_precedente = null
+    afficher_cette_page("tableau_score_global")
+    enregistrer_les_valeurs_dans_score_all_joueurs()
+    console.log(score_all_joueurs)
+})

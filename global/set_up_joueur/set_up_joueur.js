@@ -136,15 +136,11 @@ buttonStart.addEventListener("click",()=>{
         joueurs_nom.push(element.children[1].firstElementChild.value)
     });
     creation_tableu_score()
-    afficher_tableau()
+    afficher_cette_page("tableau_score_global")
     setup_logique_tableau_de_jeu()
 
 })
 
-function afficher_tableau(){
-    document.getElementById("joueurs").style.display = "none"
-    document.getElementById("tableau_score_global").style.display = "initial"
-}
 
 function add_round(){
 

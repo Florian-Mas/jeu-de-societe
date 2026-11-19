@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   // 1. Création de la structure HTML du menu sous forme de chaîne de caractères
     const navbarHTML = `
-        <nav class="navbar">
+        <nav class="navbar alaways_keep_that">
         <!-- Bouton avec les 3 barres -->
         <button class="hamburger" id="hamburger" aria-label="Menu">
             <span class="bar"></span>
