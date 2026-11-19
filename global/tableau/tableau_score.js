@@ -1,5 +1,5 @@
-let modification = false
-let base_affichage;
+// let modification = false
+// let base_affichage;
 
 function initialize_tableau_score_global(){
     tableau_score_global.style.display="none"
@@ -52,10 +52,10 @@ function creation_tableu_score(){
     for (const [index, element] of lignes_tableau_score.entries()) {
         if (index === 0) continue;
 
-        for (let i = 1; i < joueurs_nom.length+1; i++) {
+        for (let i = 0; i < joueurs_nom.length; i++) {
             const div_joueur = document.createElement("div");
             div_joueur.classList.add("slot_score_joueur");
-            div_joueur.id = `round_${index}_joueur_${i}`
+            div_joueur.id = `round_${index}_joueur_${joueurs_nom[i]}`
             element.append(div_joueur)
         }
     }
@@ -81,10 +81,10 @@ function add_round(){
 
     div_ligne.append(div_first_num)
 
-    for (let i = 1; i < joueurs_nom.length+1; i++) {
+    for (let i = 0; i < joueurs_nom.length; i++) {
         const div_joueur = document.createElement("div");
         div_joueur.classList.add("slot_score_joueur");
-        div_joueur.id = `round_${num}_joueur_${i}`
+        div_joueur.id = `round_${num}_joueur_${joueurs_nom[i]}`
         div_ligne.append(div_joueur)
     }
 
@@ -114,6 +114,7 @@ function initialize_round(num){
 function afficher_ceci(round,array_element){
     //[[nom/valeur,prorité],[nom/valeur,priorité],etc...]
     const ligne_round = document.getElementById(`round_${round}_ligne`)
+    console.log(ligne_round)
     round_affichage_a_zero(round)
     let priorite_premier =[]
     let priorite_deux =[]
@@ -125,7 +126,6 @@ function afficher_ceci(round,array_element){
             priorite_deux.push(element[0])
         }
     });
-    
     joueurs_nom.forEach(joueur=>{
         let valeur_priorite_premier = [];
         let valeur_priorite_deux = [];

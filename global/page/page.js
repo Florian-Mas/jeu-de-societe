@@ -1,4 +1,4 @@
-let page_a_afficher;
+// let page_a_afficher;
 function afficher_cette_page(id){
     const full_boddy = document.getElementById("full_body");
     [...full_boddy.children].forEach(enfant => {

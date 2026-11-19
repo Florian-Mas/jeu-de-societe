@@ -4,13 +4,13 @@ const buttonStart = document.getElementById("commencer")
 const players = document.getElementById("joueurs")
 const tableau_score_global = document.getElementById("tableau_score_global")
 
-var joueurs_nom = []
+// var joueurs_nom = []
 
-var score_all_joueurs = {}
+// var score_all_joueurs = {}
 
-let current_round = 1
-let round_started = 0
-let round_finish = 0
+// let current_round = 1
+// let round_started = 0
+// let round_finish = 0
 
 //pour réajuster le numéro des joueurs
 function reajusteNumber(){

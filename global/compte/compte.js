@@ -1,11 +1,11 @@
 const tableau_de_jeu_global = document.getElementById("tableau_de_jeu_global")
-let btn_retour_var;
-let btn_valider_var;
-const radio_list = []
+// let btn_retour_var;
+// let btn_valider_var;
+// const radio_list = []
 
-let tableau_de_jeu_entete_nom_taille =[]
-let tableau_de_jeu_type = {}
-let data_tableau_de_jeu = {}
+// let tableau_de_jeu_entete_nom_taille =[]
+// let tableau_de_jeu_type = {}
+// let data_tableau_de_jeu = {}
 
 
 function basic_setup_tableau_de_jeu(){

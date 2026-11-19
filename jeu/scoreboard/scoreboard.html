@@ -3,11 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/global/menu.css">
-    <link rel="stylesheet" href="/global/page/page.css">
-    <link rel="stylesheet" href="/global/set_up_joueur/set_up_joueur.css">
-    <link rel="stylesheet" href="/global/compte/compte.css">
-    <link rel="stylesheet" href="/global/tableau/tableau_score.css">
     <link rel="stylesheet" href="scoreboard.css">
     <title>Scoreboard</title>
 </head>
@@ -35,12 +30,19 @@
 </body>
 </html>
 
-<script src="/global/menu.js"></script>
-<script src="/global/set_up_joueur/set_up_joueur.js"></script>
-<script src="/global/compte/compte.js"></script>
-<script src="/global/page/page.js"></script>
-<script src="/global/tableau/tableau_score.js"></script>
-<script src="scoreboard.js"></script>
-<script src="/debug.js"></script>
-<!-- <script>clickDebug()</script> -->
-<script>setUpNoEmptyPlayer()</script>
+<script src="/global/loader.js"></script>
+<script>
+    window.loaderReady.then(() => {
+        // 1. On charge scoreboard.js une fois que tout /global/ est prêt
+        const sb = document.createElement("script");
+        sb.src = "scoreboard.js";
+        
+        // 2. Une fois scoreboard.js chargé, on lance vos fonctions
+        sb.onload = () => {
+            // clickDebug();
+            // setUpNoEmptyPlayer();
+        };
+        
+        document.body.appendChild(sb);
+    });
+</script>
