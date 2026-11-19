@@ -1,4 +1,3 @@
-const tableau_de_jeu_global = document.getElementById("tableau_de_jeu_global")
 // let btn_retour_var;
 // let btn_valider_var;
 // const radio_list = []
@@ -10,9 +9,10 @@ const tableau_de_jeu_global = document.getElementById("tableau_de_jeu_global")
 // let valeur_compte_ligne = null;
 
 
-function basic_setup_tableau_de_jeu(){
+function basic_setup_tableau(id){
+    const tableau_global = document.getElementById(`${id}_global`)
     const div_round = document.createElement("div")
-    const tableau_de_jeu = document.createElement("div")
+    const tableau = document.createElement("div")
     const div_ligne_tableau = document.createElement("div")
     const btn_retour = document.createElement("button")
     const btn_valider = document.createElement("button")
@@ -20,8 +20,8 @@ function basic_setup_tableau_de_jeu(){
     div_round.classList.add("affichage_du_round")
     div_round.innerHTML = `Round ${current_round}`
     
-    tableau_de_jeu.id = "tableau_de_jeu"
-    div_ligne_tableau.classList.add("ligne_tableau_de_jeu")
+    tableau.id = id
+    div_ligne_tableau.classList.add(`ligne_${id}`)
     
     btn_retour.id = "btn_retour"
     btn_retour.classList.add("bouton_bas_de_bage")
@@ -32,26 +32,27 @@ function basic_setup_tableau_de_jeu(){
 
 
 
-    tableau_de_jeu_global.appendChild(div_round)
-    tableau_de_jeu_global.appendChild(tableau_de_jeu)
-    tableau_de_jeu_global.appendChild(btn_retour)
-    tableau_de_jeu_global.appendChild(btn_valider)
+    tableau_global.appendChild(div_round)
+    tableau_global.appendChild(tableau)
+    tableau_global.appendChild(btn_retour)
+    tableau_global.appendChild(btn_valider)
 
-    tableau_de_jeu_global.style.display = "none"
+    tableau_global.style.display = "none"
 
     btn_retour_var = btn_retour
     btn_valider_var = btn_valider
 }
 
-function setup_logique_tableau_de_jeu(){
-    tableau_de_jeu.appendChild(mise_en_place_entete())
+function setup_logique_tableau(id){
+    const tableau = document.getElementById(id)
+    tableau.innerHTML = ""
+    tableau.appendChild(mise_en_place_entete())
     //format : {"nom":"type_dic"}
     //type_dic : {"type":"element"}
     //type : fix,compteur, choix
         //fix : nombre
         //compteur : [première possibilité, deuxieme, etc...]
         //choix : unique,multiple
-    const tableau = document.getElementById("tableau_de_jeu")
     document.querySelector(".affichage_du_round").innerHTML = `Round ${current_round}`
     for (const [index,element] of Array.from(tableau.children).entries()) {
         if (index === 0) {
@@ -131,7 +132,8 @@ function mise_en_place_entete(){
 
 
 
-basic_setup_tableau_de_jeu()
+basic_setup_tableau("tableau_de_jeu")
+setup_logique_tableau("tableau_de_jeu")
 
 
 function creation_fix(element,nom,sauvegarde){

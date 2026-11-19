@@ -78,6 +78,5 @@ buttonStart.addEventListener("click",()=>{
     });
     creation_tableu_score()
     afficher_cette_page("tableau_score_global")
-    setup_logique_tableau_de_jeu()
 
 })

@@ -1,5 +1,6 @@
 page_a_afficher = "tableau_de_jeu_global";
 base_affichage = [["points",1],["cumul",0]]
+id_debut_ancien_round = "tableau_de_jeu"
 initialize_round(1)
 
 const prochainTour = document.getElementById("prochain_tour")
@@ -8,7 +9,7 @@ prochainTour.addEventListener("click",()=>{
     current_round = round_started
     afficher_cette_page("tableau_de_jeu_global")
     page_precedente = "tableau_score_global"
-    setup_logique_tableau_de_jeu()
+    setup_logique_tableau("tableau_de_jeu")
     initialize_round(1)
 })
 

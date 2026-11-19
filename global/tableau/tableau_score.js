@@ -186,7 +186,7 @@ function activation_zone_clickable(n_ligne){
         e.addEventListener("click",(event)=>{
             current_round = event.target.innerHTML
             modification = true
-            setup_logique_tableau_de_jeu()
+            setup_logique_tableau(id_debut_ancien_round)
             afficher_cette_page(page_a_afficher)
         })
     })

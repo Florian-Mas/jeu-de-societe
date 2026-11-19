@@ -36,6 +36,7 @@ let valeur_compte_ligne = null;
 
 let modification = false
 let base_affichage;
+let id_debut_ancien_round;
 
 //---------------------------------------
 
