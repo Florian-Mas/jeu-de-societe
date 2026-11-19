@@ -7,6 +7,8 @@ const tableau_de_jeu_global = document.getElementById("tableau_de_jeu_global")
 // let tableau_de_jeu_type = {}
 // let data_tableau_de_jeu = {}
 
+// let valeur_compte_ligne = null;
+
 
 function basic_setup_tableau_de_jeu(){
     const div_round = document.createElement("div")
@@ -57,8 +59,10 @@ function setup_logique_tableau_de_jeu(){
         }
         element.remove()
     }
-
-    joueurs_nom.forEach(joueur => {
+    
+    valeur_compte_ligne = recuperer_une_ligne(current_round)
+    
+    joueurs_nom.forEach((joueur,index_joueur) => {
         const div_ligne =  document.createElement("div")
         div_ligne.classList.add("ligne_tableau_de_jeu")
 
@@ -75,13 +79,13 @@ function setup_logique_tableau_de_jeu(){
                 for (const [typeCle, valeur] of Object.entries(tableau_de_jeu_type[element])) {
                     switch (typeCle){
                         case "fix": 
-                            div_ligne.appendChild(creation_fix(valeur,element))
+                            div_ligne.appendChild(creation_fix(valeur,element,valeur_compte_ligne[index_joueur]))
                             break;
                         case "compteur": 
-                            div_ligne.appendChild(creation_compteur(valeur,element))
+                            div_ligne.appendChild(creation_compteur(valeur,element,valeur_compte_ligne[index_joueur]))
                             break;
                         case "choix": 
-                            div_ligne.appendChild(creation_choix(valeur,element))
+                            div_ligne.appendChild(creation_choix(valeur,element,valeur_compte_ligne[index_joueur]))
                             break;
                     }
                 }
@@ -130,24 +134,34 @@ function mise_en_place_entete(){
 basic_setup_tableau_de_jeu()
 
 
-function creation_fix(element,nom){
+function creation_fix(element,nom,sauvegarde){
     const div_element = document.createElement("div")
 
     div_element.classList.add("slot_tableau_de_jeu")
     div_element.classList.add(`tableau_de_jeu_${String(nom).replaceAll(" ","_")}`)
-    div_element.innerHTML = element
+    try{
+        div_element.innerHTML = sauvegarde[nom]
+    }
+    catch{
+        div_element.innerHTML = element
+    }
 
 
     return div_element
 }
-function creation_compteur(element,nom){
+function creation_compteur(element,nom,sauvegarde){
 
     const div_element = document.createElement("div")
     const div_nombre = document.createElement("div")
 
     div_element.classList.add("slot_tableau_de_jeu")
     div_nombre.classList.add(`tableau_de_jeu_${String(nom).replaceAll(" ","_")}`)
-    div_nombre.innerHTML = 0
+    try{
+        div_nombre.innerHTML = sauvegarde[nom]
+    }
+    catch{
+        div_nombre.innerHTML = 0
+    }
 
     div_element.appendChild(div_nombre)
 
@@ -173,7 +187,7 @@ function creation_compteur(element,nom){
 
     return div_element
 }
-function creation_choix(valeur,nom){
+function creation_choix(valeur,nom,sauvegarde){
     const div_element = document.createElement("div")
 
     div_element.classList.add("slot_tableau_de_jeu")
@@ -297,7 +311,12 @@ function recuperer_une_ligne(round){
 
     const values =[]
     joueurs_nom.forEach(joueur=>{
-        values.push(score_all_joueurs[round][joueur])
+        try{
+            values.push(score_all_joueurs[round][joueur])
+        }
+        catch{
+            values.push(null)
+        }
     })
     return values
 }

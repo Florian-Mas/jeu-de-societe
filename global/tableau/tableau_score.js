@@ -55,7 +55,7 @@ function creation_tableu_score(){
         for (let i = 0; i < joueurs_nom.length; i++) {
             const div_joueur = document.createElement("div");
             div_joueur.classList.add("slot_score_joueur");
-            div_joueur.id = `round_${index}_joueur_${joueurs_nom[i]}`
+            div_joueur.id = `round_${index}_joueur_${joueurs_nom[i].replaceAll(" ","_")}`
             element.append(div_joueur)
         }
     }
@@ -84,7 +84,7 @@ function add_round(){
     for (let i = 0; i < joueurs_nom.length; i++) {
         const div_joueur = document.createElement("div");
         div_joueur.classList.add("slot_score_joueur");
-        div_joueur.id = `round_${num}_joueur_${joueurs_nom[i]}`
+        div_joueur.id = `round_${num}_joueur_${joueurs_nom[i].replaceAll(" ","_")}`
         div_ligne.append(div_joueur)
     }
 
@@ -114,7 +114,6 @@ function initialize_round(num){
 function afficher_ceci(round,array_element){
     //[[nom/valeur,prorité],[nom/valeur,priorité],etc...]
     const ligne_round = document.getElementById(`round_${round}_ligne`)
-    console.log(ligne_round)
     round_affichage_a_zero(round)
     let priorite_premier =[]
     let priorite_deux =[]
@@ -183,10 +182,8 @@ function remove_last_div_ligne(div){
 function activation_zone_clickable(n_ligne){
     const ligne = document.getElementById(`round_${n_ligne}_ligne`);
     const zone_clickable_round = ligne.querySelectorAll(".zone_clickable_round");
-    console.log(zone_clickable_round)
     zone_clickable_round.forEach((e)=>{
         e.addEventListener("click",(event)=>{
-            console.log(event.target.innerHTML)
             current_round = event.target.innerHTML
             modification = true
             setup_logique_tableau_de_jeu()

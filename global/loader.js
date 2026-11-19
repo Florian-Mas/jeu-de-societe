@@ -29,6 +29,8 @@ let tableau_de_jeu_entete_nom_taille =[]
 let tableau_de_jeu_type = {}
 let data_tableau_de_jeu = {}
 
+let valeur_compte_ligne = null;
+
 //---------------------------------------
 //tableau_score
 
