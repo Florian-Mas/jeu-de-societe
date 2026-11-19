@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+function initMenu() {
   // 1. Création de la structure HTML du menu sous forme de chaîne de caractères
     const navbarHTML = `
         <nav class="navbar alaways_keep_that">
@@ -50,7 +50,14 @@ document.addEventListener("DOMContentLoaded", function() {
         navMenu.classList.remove('active');
         });
     });
-});
+};
+
+//si DOM est déjà charger alors on exécute directement
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMenu);
+} else {
+    initMenu();
+}
 
 //supprimer le truc de netlify
 window.addEventListener("load", () => {
