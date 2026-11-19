@@ -1,6 +1,10 @@
+let modification = false
+let base_affichage;
+
 function afficher_ceci(round,array_element){
     //[[nom/valeur,prorité],[nom/valeur,priorité],etc...]
     const ligne_round = document.getElementById(`round_${round}_ligne`)
+    round_affichage_a_zero(round)
     let priorite_premier =[]
     let priorite_deux =[]
     array_element.forEach(element => {
@@ -64,4 +68,25 @@ function cree_division(arr,prio){
 
 function remove_last_div_ligne(div){
     div.lastChild.style.border = "none"
+}
+
+function activation_zone_clickable(n_ligne){
+    const ligne = document.getElementById(`round_${n_ligne}_ligne`);
+    const zone_clickable_round = ligne.querySelectorAll(".zone_clickable_round");
+    console.log(zone_clickable_round)
+    zone_clickable_round.forEach((e)=>{
+        e.addEventListener("click",(event)=>{
+            console.log(event.target.innerHTML)
+            current_round = event.target.innerHTML
+            modification = true
+            setup_logique_tableau_de_jeu()
+            afficher_cette_page(page_a_afficher)
+        })
+    })
+}
+
+function tout_update(){
+    for (i = 1;i <= round_finish;i++){
+        afficher_ceci(i,base_affichage)
+    }
 }

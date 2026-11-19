@@ -53,7 +53,7 @@ function setup_logique_tableau_de_jeu(){
     document.querySelector(".affichage_du_round").innerHTML = `Round ${current_round}`
     for (const [index,element] of Array.from(tableau.children).entries()) {
         if (index === 0) {
-            continue; // Passe à l'élément suivant si c'est le premier
+            continue;
         }
         element.remove()
     }
@@ -287,6 +287,10 @@ btn_valider_var.addEventListener("click",()=>{
     afficher_cette_page("tableau_score_global")
     enregistrer_les_valeurs_dans_score_all_joueurs()
     round_finish = round_started
+    if (!modification){
+        activation_zone_clickable(current_round)
+    }
+    modification = false
 })
 
 function recuperer_une_ligne(round){

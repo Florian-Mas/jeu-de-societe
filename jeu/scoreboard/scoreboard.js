@@ -1,4 +1,5 @@
 page_a_afficher = "tableau_de_jeu_global";
+base_affichage = [["points",1],["cumul",0]]
 initialize_round(1)
 
 const prochainTour = document.getElementById("prochain_tour")
@@ -14,12 +15,16 @@ prochainTour.addEventListener("click",()=>{
 btn_retour_var.addEventListener("click",()=>{
     if(round_started == current_round){
         round_started = round_finish
+        if(!modification){
+            rm_last_round()
+        }
     }
+    modification = false
 })
 
 btn_valider_var.addEventListener("click",()=>{
     cumul_point()
-    afficher_ceci(current_round,[["points",1],["cumul",0]])
+    tout_update()
     
 })
 

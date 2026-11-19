@@ -152,6 +152,7 @@ function add_round(){
     const div_ligne = document.createElement("div");
     div_ligne.id = `round_${num}_ligne`;
     div_ligne.classList.add("ligne_tableau_score");
+    div_ligne.classList.add("zone_clickable_round");
     Tableau.append(div_ligne)
 
     const div_first_num =  document.createElement("div")
@@ -167,6 +168,17 @@ function add_round(){
         div_joueur.classList.add("slot_score_joueur");
         div_joueur.id = `round_${num}_joueur_${i}`
         div_ligne.append(div_joueur)
+    }
+
+}
+
+function round_affichage_a_zero(round){
+    const ligne_round = document.getElementById(`round_${round}_ligne`)
+    for (const [index,element] of Array.from(ligne_round.children).entries()) {
+        if (index === 0) {
+            continue;
+        }
+        element.replaceChildren()
     }
 
 }
