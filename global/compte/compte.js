@@ -35,6 +35,7 @@ function basic_setup_tableau_de_jeu(){
     const btn_valider = document.createElement("button")
 
     div_round.classList.add("affichage_du_round")
+    div_round.innerHTML = `Round ${current_round}`
     
     tableau_de_jeu.id = "tableau_de_jeu"
     div_ligne_tableau.classList.add("ligne_tableau_de_jeu")
@@ -68,6 +69,7 @@ function setup_logique_tableau_de_jeu(){
         //compteur : [première possibilité, deuxieme, etc...]
         //choix : unique,multiple
     const tableau = document.getElementById("tableau_de_jeu")
+    document.querySelector(".affichage_du_round").innerHTML = `Round ${current_round}`
     for (const [index,element] of Array.from(tableau.children).entries()) {
         if (index === 0) {
             continue; // Passe à l'élément suivant si c'est le premier
@@ -259,7 +261,7 @@ function enregistrer_les_valeurs_dans_score_all_joueurs(){
     //pour chaque ligne
     ligne_tableau.forEach((element,index_ligne) => {
         let liste_joueur_valeur = [];
-        console.log(joueurs_nom[index_ligne]);
+        // console.log(joueurs_nom[index_ligne]);
         //on récupère chaque éléments
         [...element.children].forEach(enfant => {
             //on vérifie si la div de base à la classe tableau_de_jeu_ qui début
@@ -302,5 +304,5 @@ btn_valider_var.addEventListener("click",()=>{
     page_precedente = null
     afficher_cette_page("tableau_score_global")
     enregistrer_les_valeurs_dans_score_all_joueurs()
-    console.log(score_all_joueurs)
+    round_finish = round_started
 })

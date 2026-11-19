@@ -9,6 +9,8 @@ var joueurs_nom = []
 var score_all_joueurs = {}
 
 let current_round = 1
+let round_started = 0
+let round_finish = 0
 
 //pour réajuster le numéro des joueurs
 function reajusteNumber(){
@@ -167,6 +169,10 @@ function add_round(){
         div_ligne.append(div_joueur)
     }
 
+}
+
+function rm_last_round(){
+    [...document.querySelectorAll(".ligne_tableau_score")].at(-1).remove();
 }
 
 function initialize_round(num){

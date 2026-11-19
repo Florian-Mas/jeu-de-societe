@@ -13,9 +13,9 @@
 <body>
     <!-- Arrière-plan lumineux et bleuté (nécessaire pour voir le flou sur fond noir) -->
     <div id="full_body" class="glass_body">
-        <div class="bg-glow glow1"></div>
-        <div class="bg-glow glow2"></div>
-        <div id="zone_de_préparation_pour_le_menu"></div>
+        <div class="bg-glow glow1 alaways_keep_that"></div>
+        <div class="bg-glow glow2 alaways_keep_that"></div>
+        <div id="zone_de_préparation_pour_le_menu" class="alaways_keep_that"></div>
         
         <div id="joueurs">
             <div id="tableau_joueur">
@@ -37,5 +37,8 @@
 <script src="/global/menu.js"></script>
 <script src="/global/set_up_joueur/set_up_joueur.js"></script>
 <script src="/global/compte/compte.js"></script>
+<script src="/global/page/page.js"></script>
 <script src="scoreboard.js"></script>
-<!-- <script src="debug.js"></script> -->
+<script src="/debug.js"></script>
+<!-- <script>clickDebug()</script> -->
+<script>setUpNoEmptyPlayer()</script>
