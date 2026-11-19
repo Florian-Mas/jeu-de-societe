@@ -21,3 +21,50 @@ function clickDebug(){
 function setUpNoEmptyPlayer(){
     joueurs_nom = ["joueur 1", "joueur 2"]
 }
+
+function exampleUtilisationTableauScore(){
+
+    tableau_de_jeu_entete_nom_taille =[
+        ["test0",2],
+        ["test1",1],
+        ["test2",2],
+        ["test3",2],
+        ["test4",2],
+    ]
+    tableau_de_jeu_type = 
+    {
+        "test1":{
+            "fix":0
+        },
+        "test2":{
+            "compteur":[1,10]
+        },
+        "test3":{
+            "choix":"unique"
+        },
+        "test4":{
+            "choix":"multiple"
+        }
+    }
+
+    //exemple de résultat pour les round avec des noms de joueurs par défault et une valeur sauvegarder
+    data_tableau_de_jeu = {
+        "round1":{
+            "joueur_1":{
+                "cumul":0
+            },
+            "joueur_2":{
+                "cumul":0
+            }
+        },
+        "round2":{
+            "joueur_1":{
+                "cumul":0
+            },
+            "joueur_2":{
+                "cumul":0
+            }
+        }
+    }
+
+}

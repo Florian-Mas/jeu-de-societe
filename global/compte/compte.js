@@ -3,28 +3,9 @@ let btn_retour_var;
 let btn_valider_var;
 const radio_list = []
 
-const tableau_de_jeu_entete_nom_taille =[
-    ["test0",2],
-    ["test1",1],
-    ["test2",2],
-    ["test3",2],
-    ["test4",2],
-]
-const tableau_de_jeu_type = 
-{
-    "test1":{
-        "fix":0
-    },
-    "test2":{
-        "compteur":[1,10]
-    },
-    "test3":{
-        "choix":"unique"
-    },
-    "test4":{
-        "choix":"multiple"
-    }
-}
+let tableau_de_jeu_entete_nom_taille =[]
+let tableau_de_jeu_type = {}
+let data_tableau_de_jeu = {}
 
 
 function basic_setup_tableau_de_jeu(){
@@ -56,12 +37,12 @@ function basic_setup_tableau_de_jeu(){
 
     tableau_de_jeu_global.style.display = "none"
 
-    tableau_de_jeu.appendChild(mise_en_place_entete())
     btn_retour_var = btn_retour
     btn_valider_var = btn_valider
 }
 
 function setup_logique_tableau_de_jeu(){
+    tableau_de_jeu.appendChild(mise_en_place_entete())
     //format : {"nom":"type_dic"}
     //type_dic : {"type":"element"}
     //type : fix,compteur, choix
@@ -228,8 +209,6 @@ function adding_plus_moins_on_click(event){
     const div_valeur = event.target.parentElement.querySelector(':scope > [class^="tableau_de_jeu_"]');
     let valeur = Number(div_valeur.textContent)
 
-    console.log(nb)
-    console.log(valeur+nb)
     div_valeur.innerHTML = valeur+nb
 }
 
@@ -288,6 +267,9 @@ function enregistrer_les_valeurs_dans_score_all_joueurs(){
             score_all_joueurs[current_round] ||= {};
             score_all_joueurs[current_round][joueurs_nom[index_ligne]] ||= {};
             score_all_joueurs[current_round][joueurs_nom[index_ligne]][tableau_de_jeu_entete_nom_taille[index_valeur][0]] = valeur_a_save;
+
+            data_tableau_de_jeu[current_round] ||= {};
+            data_tableau_de_jeu[current_round][joueurs_nom[index_ligne]] ||= {};
         })
 
 
@@ -301,8 +283,23 @@ btn_retour_var.addEventListener("click",()=>{
 })
 
 btn_valider_var.addEventListener("click",()=>{
-    page_precedente = null
+    page_precedente = "tableau_score_global"
     afficher_cette_page("tableau_score_global")
     enregistrer_les_valeurs_dans_score_all_joueurs()
     round_finish = round_started
 })
+
+function recuperer_une_ligne(round){
+
+    const values =[]
+    joueurs_nom.forEach(joueur=>{
+        values.push(score_all_joueurs[round][joueur])
+    })
+    return values
+}
+
+function ajouter_a_data(round,nom,array_valeur){
+    joueurs_nom.forEach((valeur,index_valeur)=>{
+        data_tableau_de_jeu[round][valeur][nom] = array_valeur[index_valeur]
+    })
+}

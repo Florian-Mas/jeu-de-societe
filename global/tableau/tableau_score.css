@@ -1,0 +1,73 @@
+#tableau_score_global{
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    align-content: center;
+    text-align: center;
+    
+    display:none;
+}
+
+#tableau_score{
+    
+    width: 90%;
+    max-height: 70%;
+    display: flex;
+    flex-direction: column;
+    
+    margin: 0 auto;
+
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 6px;
+
+    overflow-x: hidden;
+    overflow-y:auto;
+    
+}
+
+.ligne_tableau_score{
+    
+    display: grid;
+    grid-template-columns: var(--grille_colonnes_tableau_score, 1fr 2fr 2fr);
+
+    align-items: center;
+
+    border-bottom: 1px solid rgb(255, 255, 255);
+    height: 5vh;
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.slot_score_joueur{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(0.80rem, 1.5vw, 1rem);
+
+    border-right:2px solid rgb(255, 255, 255);
+    /* min-width: 50px; */
+
+    justify-content: center;
+}
+
+.ligne_dans_slot_score_joueur{
+    justify-content: center;
+    display: flex;
+    gap: 2%;
+
+    border-bottom:  2px dotted rgb(255, 255, 255);
+    padding: 3px 0px;
+
+
+}
+
+.element_gauche_dans_slot_score_joueur{
+    border-right:  2px dotted rgb(255, 255, 255);
+    padding-right: 3px;
+}
+
+.element_segondaire_dans_slote_score_joueur{
+    opacity: 50%;
+}
